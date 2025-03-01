@@ -1,0 +1,105 @@
+@startuml
+interface IDraw {
+    + void Draw(Graphics g)
+}
+
+class BaseEntity {
+    + int X
+    + int Y
+    + int Width
+    + int Height
+    + bool CheckCollision()
+}
+
+class Ship {
+    + int Speed
+    + int Lives = 3
+    + int Damage = 1
+    + void MoveLeft()
+    + void MoveRight()
+    + void Shoot()
+    + void UpdateAmmo()
+    + void DrawAmmo(Graphics g)
+}
+
+class Ammo {
+    + int Speed
+    + bool Move()
+    + void Draw(Graphics g)
+}
+
+class Invader {
+    + int Damage
+    + int Health
+    + int Score
+    + void Draw(Graphics g)
+    + void Shoot()
+}
+
+class BasicInvader {
+    + Damage = 1
+    + Health = 1
+    + Score = 20
+}
+
+class MediumInvader {
+    + Damage = 1
+    + Health = 2
+    + Score = 40
+}
+
+class BossInvader {
+    + Damage = 2
+    + Health = 4
+    + Score = 100
+}
+
+class GameManager {
+    - Ship Player
+    - List<BasicInvader> invaders1;
+    - List<MediumInvader> invaders2;
+    - BossInvader invader;
+    - List<Ammo> AmmoList
+    - int Score
+    - int Lives
+    + void Update()
+    + void Render()
+}
+
+class UserControl1 {
+    - GameManager Game
+    + void OnPaint()
+    + void HandleKeyDown()
+    + void HandleKeyUp()
+}
+
+class SoundManager {
+    + private static readonly Dictionary<string, WaveOutEvent> 
+    + private static readonly Dictionary<string, AudioFileReader>
+    + public static void PlaySound(string filePath)
+    + public static void Dispose()
+}
+
+BaseEntity <|-- Ship
+BaseEntity <|-- Ammo
+BaseEntity <|-- Invader
+
+Invader <|-- BasicInvader
+Invader <|-- MediumInvader
+Invader <|-- BossInvader
+
+IDraw <|.. Ship
+IDraw <|.. Ammo
+IDraw <|.. Invader
+
+GameManager o-- Ship
+GameManager o-- Invader
+GameManager o-- Ammo
+
+UserControl1 o-- GameManager
+
+Ship ..> SoundManager : "Usa"
+BaseEntity ..> SoundManager : "Usa"
+
+
+@enduml

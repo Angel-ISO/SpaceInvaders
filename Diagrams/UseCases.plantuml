@@ -1,0 +1,27 @@
+@startuml
+actor Player
+actor System
+
+usecase "Mover nave izquierda" as UC1
+usecase "Mover nave derecha" as UC2
+usecase "Disparar proyectil" as UC3
+usecase "Actualizar estado del juego" as UC4
+usecase "Dibujar nave y proyectiles" as UC5
+usecase "Dibujar invasores" as UC6
+usecase "Verificar colisiones" as UC7
+usecase "Reproducir sonido" as UC8
+usecase "Actualizar puntaje" as UC9
+
+Player --> UC1
+Player --> UC2
+Player --> UC3
+System --> UC4
+System --> UC5
+System --> UC6
+System --> UC7
+System --> UC8
+System --> UC9
+
+UC3 --> UC8 : "Al disparar"
+UC7 --> UC8 : "Al colisionar"
+@enduml
